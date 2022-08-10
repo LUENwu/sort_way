@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.result {
+  margin-left: 80px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid red;
+}
+
+
+/*# sourceMappingURL=/src.9ad09f98.css.map */
