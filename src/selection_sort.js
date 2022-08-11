@@ -18,13 +18,9 @@ let  minIndex = arr =>{
 let min = arr => {
   if(arr.length <= 1){return arr}
   if(arr.length > 2){
-    console.log(arr[0])
     return min([arr[0],min(arr.slice(1))])
   }else{
-    console.log(` _____`)
-    console.log(arr)
     let result = Math.min.apply(null,arr)
-    console.log(result)
     return result
   }
 }
@@ -66,7 +62,7 @@ let sort2 = arr => {
   }
   return arr
 }
-sort2(a)
+// sort2(a)
 
 
 

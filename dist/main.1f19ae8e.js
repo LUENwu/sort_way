@@ -140,13 +140,9 @@ var min = function min(arr) {
   }
 
   if (arr.length > 2) {
-    console.log(arr[0]);
     return min([arr[0], min(arr.slice(1))]);
   } else {
-    console.log(" _____");
-    console.log(arr);
     var result = Math.min.apply(null, arr);
-    console.log(result);
     return result;
   }
 }; //sort 排序 将数组从小到大排列 --递归方式
@@ -191,14 +187,112 @@ var sort2 = function sort2(arr) {
   }
 
   return arr;
+}; // sort2(a)
+},{}],"quickSort.js":[function(require,module,exports) {
+var quickSort = function quickSort(numbers) {
+  if (numbers.length <= 1) {
+    return numbers;
+  }
+
+  var pivotIndex = Math.floor(numbers.length / 2);
+  var pivot = numbers.splice(pivotIndex, 1)[0];
+  var left = [],
+      right = [];
+
+  for (var i = 0; i < numbers.length; i++) {
+    if (numbers[i] < pivot) {
+      left.push(numbers[i]);
+    } else {
+      right.push(numbers[i]);
+    }
+  }
+
+  return sort(left).concat([pivot], sort(right));
 };
 
-sort2(a);
+var b = [2, 12, 13, -7, 11, 5, 3];
+},{}],"mergeSort.js":[function(require,module,exports) {
+// 归并排序算法实现排序的思路是：
+// 将整个待排序序列划分成多个不可再分的子序列，每个子序列中仅有 1 个元素；
+// 所有的子序列进行两两合并，合并过程中完成排序操作，最终合并得到的新序列就是有序序列。
+// slice() 方法返回一个新的数组对象，这一对象是一个由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括end）。原始数组不会被改变,提取起始处的索引（从 0 开始），从该索引开始提取原数组元素.返回值,一个含有被提取元素的新数组
+var c = [2, 12, 13, -7, 11, 5, 3];
+
+var mergeSort = function mergeSort(arr) {
+  var k = arr.length;
+
+  if (k <= 1) {
+    return arr;
+  }
+
+  var left = arr.slice(0, Math.floor(k / 2));
+  var right = arr.slice(Math.floor(k / 2));
+  console.log("left:".concat(left));
+  console.log("right:".concat(right));
+  return merge(mergeSort(left), mergeSort(right));
+};
+
+var merge = function merge(a, b) {
+  console.log("a:".concat(a, ",b:").concat(b));
+
+  if (a.length === 0) {
+    return b;
+  }
+
+  if (b.length === 0) {
+    return a;
+  }
+
+  return a[0] > b[0] ? [b[0]].concat(merge(a, b.slice(1))) : [a[0]].concat(merge(a.slice(1), b));
+};
+},{}],"countSort.js":[function(require,module,exports) {
+//计数排序的特点 
+// 使用了额外的hashTable 只遍历数组一遍(不过还要遍历一次hashTable)
+// 这叫做[空间换时间]
+var d = [2, 12, 13, -7, 11, 5, 3];
+
+var countSort = function countSort(arr) {
+  var hashTable = {},
+      result = [],
+      max = 0;
+
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] in hashTable) {
+      hashTable[arr[i]] += 1;
+    } else {
+      hashTable[arr[i]] = 1;
+    }
+
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+
+  console.log(hashTable);
+
+  for (var j = -10000000; j <= max; j++) {
+    if (j in hashTable) {
+      for (var _i = 0; _i < hashTable[j]; _i++) {
+        result.push(j);
+      }
+    }
+  }
+
+  return result;
+};
+
+console.log(countSort(d));
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
 require("./selection_sort");
-},{"./selection_sort":"selection_sort.js"}],"../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./quickSort");
+
+require("./mergeSort");
+
+require("./countSort");
+},{"./selection_sort":"selection_sort.js","./quickSort":"quickSort.js","./mergeSort":"mergeSort.js","./countSort":"countSort.js"}],"../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -226,7 +320,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56043" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63824" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
